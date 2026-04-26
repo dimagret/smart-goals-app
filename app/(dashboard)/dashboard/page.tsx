@@ -1,23 +1,7 @@
-import { redirect } from "next/navigation"
-import { getAuthSession } from "@/lib/session"
 import { prisma } from "@/lib/prisma"
-import { DashboardStats } from "@/components/DashboardStats"
-import { GoalCard } from "@/components/GoalCard"
-import { GoalCharts } from "@/components/GoalCharts"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Target, ArrowRight } from "lucide-react"
-import Link from "next/link"
 
 export default async function DashboardPage() {
-  const session = await getAuthSession()
-
-  if (!session?.user?.id) {
-    redirect("/auth/signin")
-  }
-
   const goals = await prisma.goal.findMany({
-    where: { userId: session.user.id },
     include: {
       subtasks: true,
       checkIns: {
