@@ -11,7 +11,7 @@ interface Goal {
   category: string
   status: string
   progress: number
-  timeBound: string
+  timeBound: Date | string
   subtasks: { completed: boolean }[]
 }
 
